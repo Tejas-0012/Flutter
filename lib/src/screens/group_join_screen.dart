@@ -34,11 +34,7 @@ class _GroupJoinScreenState extends State<GroupJoinScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Logo/Header
-            const Icon(
-              Icons.restaurant,
-              size: 80,
-              color: Colors.orange,
-            ),
+            const Icon(Icons.restaurant, size: 80, color: Colors.orange),
             const SizedBox(height: 20),
             const Text(
               'Group Ordering',
@@ -51,14 +47,11 @@ class _GroupJoinScreenState extends State<GroupJoinScreen> {
             const SizedBox(height: 10),
             const Text(
               'Create or join a group order with friends',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
-              ),
+              style: TextStyle(fontSize: 16, color: Colors.grey),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 40),
-            
+
             // Group ID Input
             TextField(
               controller: _groupIdController,
@@ -69,14 +62,14 @@ class _GroupJoinScreenState extends State<GroupJoinScreen> {
               ),
             ),
             const SizedBox(height: 30),
-            
+
             // Buttons
             Consumer<GroupCartProvider>(
               builder: (context, provider, child) {
                 if (provider.isLoading) {
                   return const CircularProgressIndicator();
                 }
-                
+
                 if (provider.error != null) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -88,7 +81,7 @@ class _GroupJoinScreenState extends State<GroupJoinScreen> {
                     provider.clearError();
                   });
                 }
-                
+
                 return Column(
                   children: [
                     SizedBox(
@@ -133,15 +126,13 @@ class _GroupJoinScreenState extends State<GroupJoinScreen> {
 
   void _createGroup(GroupCartProvider provider) async {
     await provider.createGroup(widget.userId, widget.username);
-    
+
     if (provider.currentGroup != null && mounted) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => GroupCartScreen(
-            userId: widget.userId,
-            username: widget.username,
-          ),
+          builder: (context) =>
+              GroupCartScreen(userId: widget.userId, username: widget.username),
         ),
       );
     }
@@ -150,17 +141,15 @@ class _GroupJoinScreenState extends State<GroupJoinScreen> {
   void _joinGroup(GroupCartProvider provider) async {
     final groupId = _groupIdController.text.trim().toUpperCase();
     if (groupId.isEmpty) return;
-    
+
     await provider.joinGroup(groupId, widget.userId, widget.username);
-    
+
     if (provider.currentGroup != null && mounted) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => GroupCartScreen(
-            userId: widget.userId,
-            username: widget.username,
-          ),
+          builder: (context) =>
+              GroupCartScreen(userId: widget.userId, username: widget.username),
         ),
       );
     }

@@ -13,15 +13,7 @@ import '../components/cart_footer.dart';
 final String BASE_URL = getBaseUrl();
 
 String getBaseUrl() {
-  if (kIsWeb) {
-    return 'http://127.0.0.1:5000';
-  } else if (Platform.isAndroid) {
-    return 'http://10.0.2.2:5000';
-  } else if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-    return 'http://127.0.0.1:5000';
-  } else {
-    return 'http://192.168.1.7:5000';
-  }
+  return "https://api-node-0hjb.onrender.com";
 }
 
 class FoodScreen extends StatefulWidget {
